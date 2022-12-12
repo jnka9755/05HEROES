@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { HeroesRoutingModule } from './heroes-routing.module';
 import { MaterialModule } from '../material/material.module';
@@ -13,6 +14,7 @@ import { SearchOneComponent } from './pages/search-one/search-one.component';
 import { HeroeCardComponent } from './components/heroe-card/heroe-card.component';
 
 import { ImagePipe } from './pipes/image.pipe';
+
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { ImagePipe } from './pipes/image.pipe';
   imports: [
     CommonModule,
     FlexLayoutModule,
+    FormsModule,
     HeroesRoutingModule,
     MaterialModule
   ]

@@ -21,4 +21,8 @@ export class HeroesService {
   getById(id: string): Observable<HeroeDto> {
     return this.http.get<HeroeDto>(`${this.apiUrl}/heroes/${id}`);
   }
+
+  getBySearch(value: string): Observable<HeroeDto[]> {
+    return this.http.get<HeroeDto[]>(`${this.apiUrl}/heroes?q=${ value }&_limit=5`);
+  }
 }
