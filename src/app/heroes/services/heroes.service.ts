@@ -25,4 +25,16 @@ export class HeroesService {
   getBySearch(value: string): Observable<HeroeDto[]> {
     return this.http.get<HeroeDto[]>(`${this.apiUrl}/heroes?q=${ value }&_limit=5`);
   }
+
+  save(heroe: HeroeDto): Observable<HeroeDto>{
+    return this.http.post<HeroeDto>(`${this.apiUrl}/heroes`, heroe);
+  }
+
+  update(heroe: HeroeDto): Observable<HeroeDto>{
+    return this.http.put<HeroeDto>(`${this.apiUrl}/heroes/${heroe.id}`, heroe);
+  }
+
+  delete(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/heroes/${id}`);
+  }
 }
