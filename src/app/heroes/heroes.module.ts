@@ -14,6 +14,7 @@ import { SearchOneComponent } from './pages/search-one/search-one.component';
 import { HeroeCardComponent } from './components/heroe-card/heroe-card.component';
 
 import { ImagePipe } from './pipes/image.pipe';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 
 
@@ -26,7 +27,8 @@ import { ImagePipe } from './pipes/image.pipe';
     SearchOneComponent,
     HeroeCardComponent,
     
-    ImagePipe
+    ImagePipe,
+          ConfirmComponent
   ],
   imports: [
     CommonModule,

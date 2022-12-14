@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { ConfirmComponent } from '../../components/confirm/confirm.component';
 
 import { HeroeDto, Publisher } from '../../Interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
@@ -41,7 +44,9 @@ export class CreateComponent implements OnInit {
 
   constructor(private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -58,16 +63,17 @@ export class CreateComponent implements OnInit {
 
   saveHeroe(){
 
-    if(this.heroe.superhero.trim().length === 0)
+    if(this.heroe.superhero.trim().length === 0 || this.heroe.image.trim().length === 0)
       return
 
     if(this.heroe.id){
       this.heroesService.update(this.heroe)
-      .subscribe(heroe => console.log(heroe));
+      .subscribe(heroe => this.showNofication('Registro actualizado'));
     }
     else{
       this.heroesService.save(this.heroe)
       .subscribe(heroe => {
+        this.showNofication('Registro creado');
         this.router.navigate(['/heroes/edit', heroe.id])
       }); 
     }
@@ -75,9 +81,27 @@ export class CreateComponent implements OnInit {
 
   deleteHeroe(){
     
-    this.heroesService.delete(this.heroe.id)
-    .subscribe(response =>{
+    const dialog = this.dialog.open( ConfirmComponent, {
+      width: '250px',
+      data: this.heroe
+    });
+
+    dialog.afterClosed()
+    .subscribe(result => {
+      if(result){
+        this.heroesService.delete(this.heroe.id)
+        .subscribe(response =>{
         this.router.navigate(['/heroes']);
       });
+      }
+    });  
+  }
+
+  showNofication(message: string){
+    
+    this.snackBar.open(message, 'Cerrar', 
+    {
+      duration: 2500
+    });
   }
 }
